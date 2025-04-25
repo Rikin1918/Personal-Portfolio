@@ -8,8 +8,9 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
+  base: '/Rikin1918/',
   plugins: [
-    react()
+    react(),
   ].filter(Boolean),
   resolve: {
     alias: {
