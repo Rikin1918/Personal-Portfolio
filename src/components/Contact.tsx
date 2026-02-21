@@ -55,10 +55,10 @@ export default function Contact() {
               
               <div className="flex items-center">
                 <div className="flex space-x-4 mt-4">
-                  <a href="https://www.linkedin.com/in/rikin-k-patel-412a82301/" target='_blank'  className="p-2 bg-primary/10 rounded-full text-primary hover:bg-primary hover:text-white transition-colors">
+                  <a href="https://www.linkedin.com/in/rikin-k-patel-412a82301/" aria-label='Linkedin Profile Link' target='_blank'  className="p-2 bg-primary/10 rounded-full text-primary hover:bg-primary hover:text-white transition-colors">
                     <Linkedin className="h-5 w-5" />
                   </a>
-                  <a href="https://github.com/pate1355" target='_blank'   className="p-2 bg-primary/10 rounded-full text-primary hover:bg-primary hover:text-white transition-colors">
+                  <a href="https://github.com/pate1355" target='_blank' aria-label='Github Profile Link'   className="p-2 bg-primary/10 rounded-full text-primary hover:bg-primary hover:text-white transition-colors">
                     <Github className="h-5 w-5" />
                   </a>
                 </div>

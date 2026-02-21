@@ -19,7 +19,7 @@ export default function Resume() {
           </Button>
         </div>
         
-        <Tabs defaultValue="experience" className="w-full">
+        {/* <Tabs defaultValue="experience" className="w-full">
           <TabsList className="grid w-full max-w-md mx-auto md:grid-cols-2">
             <TabsTrigger value="experience">Experience</TabsTrigger>
             <TabsTrigger value="education">Education</TabsTrigger>
@@ -112,7 +112,7 @@ export default function Resume() {
               </Card>
             </div>
           </TabsContent>
-        </Tabs>
+        </Tabs> */}
       </div>
     </section>
   );
