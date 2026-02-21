@@ -24,20 +24,20 @@ export default function Footer() {
                 onClick={(e) => e.preventDefault()}
                 className="p-2 rounded-full text-foreground/70 hover:text-primary transition-colors"
               >
-                <Github className="h-5 w-5" />
+                <Github className="h-5 w-5" aria-label='Github Profile Link'  />
               </a>
               <a 
                 href="#" 
                 onClick={(e) => e.preventDefault()}
                 className="p-2 rounded-full text-foreground/70 hover:text-primary transition-colors"
               >
-                <Linkedin className="h-5 w-5" />
+                <Linkedin className="h-5 w-5" aria-label='Linkedin Profile Link' />
               </a>
               <a 
                 href="mailto:rikinpatel17902@gmail.com"
                 className="p-2 rounded-full text-foreground/70 hover:text-primary transition-colors"
               >
-                <Mail className="h-5 w-5" />
+                <Mail className="h-5 w-5" aria-label='Email Link' />
               </a>
             </div>
           </div>
