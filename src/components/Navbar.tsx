@@ -1,6 +1,7 @@
-
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
+import { Menu, X } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const navItems = [
   { name: 'Home', href: '#hero' },
@@ -75,43 +76,56 @@ export default function Navbar() {
 function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
 
+  // Prevent body scrolling when the menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   return (
     <div>
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="p-2 text-foreground"
+        className="p-2 text-foreground relative z-50 flex items-center justify-center rounded-md hover:bg-secondary/50 transition-colors"
+        aria-label="Toggle Menu"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          {isOpen ? (
-            <>
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </>
-          ) : (
-            <>
-              <line x1="4" y1="8" x2="20" y2="8" />
-              <line x1="4" y1="16" x2="20" y2="16" />
-            </>
-          )}
-        </svg>
+        {isOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
       
-      {isOpen && (
-        <div className="absolute top-full left-0 w-full bg-white shadow-lg py-4 animate-fade-in-up">
-          <div className="container flex flex-col space-y-4">
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                onClick={() => setIsOpen(false)}
-                className="nav-link py-2"
-              >
-                {item.name}
-              </a>
-            ))}
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 bg-background/95 backdrop-blur-md pt-24 pb-6 px-6 shadow-2xl h-screen w-screen flex flex-col"
+          >
+            <div className="flex flex-col space-y-6 items-center justify-center h-full">
+              {navItems.map((item, index) => (
+                <motion.a
+                  key={item.name}
+                  href={item.href}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 + index * 0.05 }}
+                  onClick={() => setIsOpen(false)}
+                  className="text-2xl font-semibold tracking-wide text-foreground hover:text-primary transition-colors"
+                >
+                  {item.name}
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
+
