@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useTheme } from 'next-themes';
 
 const navItems = [
   { name: 'Home', href: '#hero' },
@@ -9,6 +10,8 @@ const navItems = [
   { name: 'Education', href: '#education' },
   { name: 'Skills', href: '#skills' },
   { name: 'Projects', href: '#projects' },
+  { name: 'Blog', href: '#blog' },
+  { name: 'Certifications', href: '#certifications' },
   { name: 'Resume', href: '#resume' },
   { name: 'Contact', href: '#contact' },
 ];
@@ -16,6 +19,10 @@ const navItems = [
 export default function Navbar() {
   const [activeSection, setActiveSection] = useState('hero');
   const [scrolled, setScrolled] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   // Handle scroll to update navbar style
   useEffect(() => {
@@ -43,29 +50,52 @@ export default function Navbar() {
   return (
     <header className={cn(
       'fixed top-0 left-0 w-full z-50 transition-all duration-300',
-      scrolled ? 'bg-white/90 backdrop-blur-sm shadow-md py-3' : 'bg-transparent py-6'
+      scrolled ? 'bg-background/90 backdrop-blur-sm shadow-md py-3' : 'bg-transparent py-6'
     )}>
       <div className="container flex items-center justify-between">
         <a href="#hero" className="text-xl font-bold font-heading text-foreground">
           Rikin<span className="text-primary">.</span>
         </a>
 
-        <nav className="hidden md:flex space-x-6">
-          {navItems.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              className={cn(
-                'nav-link',
-                activeSection === item.href.replace('#', '') ? 'active' : ''
-              )}
-            >
-              {item.name}
-            </a>
-          ))}
-        </nav>
+        <div className="hidden md:flex items-center gap-6">
+          <nav className="flex space-x-6">
+            {navItems.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className={cn(
+                  'nav-link',
+                  activeSection === item.href.replace('#', '') ? 'active' : ''
+                )}
+              >
+                {item.name}
+              </a>
+            ))}
+          </nav>
 
-        <div className="md:hidden">
+          {/* Dark Mode Toggle */}
+          {mounted && (
+            <button
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              className="p-2 rounded-xl bg-secondary/80 text-foreground hover:text-primary hover:bg-secondary transition-all duration-300"
+              aria-label="Toggle Dark Mode"
+            >
+              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+          )}
+        </div>
+
+        <div className="flex items-center gap-3 md:hidden">
+          {/* Dark Mode Toggle (Mobile) */}
+          {mounted && (
+            <button
+              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              className="p-2 rounded-xl bg-secondary/80 text-foreground hover:text-primary transition-all duration-300"
+              aria-label="Toggle Dark Mode"
+            >
+              {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+          )}
           <MobileMenu />
         </div>
       </div>

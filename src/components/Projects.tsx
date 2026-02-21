@@ -2,6 +2,8 @@
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
 import { ExternalLink, Github } from 'lucide-react';
+import { useRef, useEffect } from 'react';
+import VanillaTilt from 'vanilla-tilt';
 
 const projects = [
   {
@@ -114,8 +116,27 @@ export default function Projects() {
 }
 
 function ProjectCard({ project, isFeatured }: { project: typeof projects[0]; isFeatured: boolean }) {
+  const tiltRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (tiltRef.current) {
+      VanillaTilt.init(tiltRef.current, {
+        max: 8,
+        speed: 400,
+        glare: true,
+        'max-glare': 0.15,
+        scale: 1.02,
+      });
+    }
+    return () => {
+      if (tiltRef.current) {
+        (tiltRef.current as any).vanillaTilt?.destroy();
+      }
+    };
+  }, []);
+
   return (
-    <div className="group relative w-full h-full rounded-3xl overflow-hidden bg-card border border-border/50 shadow-sm hover:shadow-xl transition-all duration-500">
+    <div ref={tiltRef} className="group relative w-full h-full rounded-3xl overflow-hidden bg-card border border-border/50 shadow-sm hover:shadow-xl transition-all duration-500">
       
       {/* Background Image */}
       <div className="absolute inset-0 w-full h-full">
