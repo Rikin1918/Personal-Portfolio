@@ -1,32 +1,36 @@
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Mail, Phone, MapPin, Linkedin, Github, Send } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Mail, Phone, MapPin, Linkedin, Github, Send } from "lucide-react";
+import { motion } from "framer-motion";
 
 const contactInfo = [
   {
     icon: Mail,
-    label: 'Email',
-    value: 'rikinpatel17902@gmail.com',
-    href: 'mailto:rikinpatel17902@gmail.com',
+    label: "Email",
+    value: "rikinpatel17902@gmail.com",
+    href: "mailto:rikinpatel17902@gmail.com",
   },
   {
     icon: Phone,
-    label: 'Phone',
-    value: '+1 (249) 688-1018',
-    href: 'tel:+12496881018',
+    label: "Phone",
+    value: "+1 (249) 688-1018",
+    href: "tel:+12496881018",
   },
   {
     icon: MapPin,
-    label: 'Location',
-    value: 'Ottawa, ON',
+    label: "Location",
+    value: "Hamilton, ON",
   },
 ];
 
 const socialLinks = [
-  { icon: Linkedin, href: 'https://www.linkedin.com/in/rikin-k-patel-412a82301/', label: 'LinkedIn' },
-  { icon: Github, href: 'https://github.com/pate1355', label: 'GitHub' },
+  {
+    icon: Linkedin,
+    href: "https://www.linkedin.com/in/rikin-k-patel-412a82301/",
+    label: "LinkedIn",
+  },
+  { icon: Github, href: "https://github.com/pate1355", label: "GitHub" },
 ];
 
 const itemVariants = {
@@ -50,14 +54,14 @@ export default function Contact() {
         >
           <h2 className="section-title">Get In Touch</h2>
           <p className="text-lg text-muted-foreground">
-            I'm always open to new opportunities and collaborations. Feel free to reach out if you have any 
-            questions or just want to connect.
+            I'm always open to new opportunities and collaborations. Feel free
+            to reach out if you have any questions or just want to connect.
           </p>
         </motion.div>
-        
+
         <div className="grid lg:grid-cols-5 gap-10 items-start max-w-5xl mx-auto">
           {/* Contact Info */}
-          <motion.div 
+          <motion.div
             className="lg:col-span-2 space-y-6"
             initial="hidden"
             whileInView="visible"
@@ -67,8 +71,8 @@ export default function Contact() {
             {contactInfo.map((item) => {
               const Icon = item.icon;
               return (
-                <motion.div 
-                  key={item.label} 
+                <motion.div
+                  key={item.label}
                   variants={itemVariants}
                   className="group flex items-center gap-5 p-5 bg-card/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
                 >
@@ -76,13 +80,20 @@ export default function Contact() {
                     <Icon size={22} />
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground mb-0.5">{item.label}</p>
+                    <p className="text-sm text-muted-foreground mb-0.5">
+                      {item.label}
+                    </p>
                     {item.href ? (
-                      <a href={item.href} className="text-foreground font-medium hover:text-primary transition-colors">
+                      <a
+                        href={item.href}
+                        className="text-foreground font-medium hover:text-primary transition-colors"
+                      >
                         {item.value}
                       </a>
                     ) : (
-                      <p className="text-foreground font-medium">{item.value}</p>
+                      <p className="text-foreground font-medium">
+                        {item.value}
+                      </p>
                     )}
                   </div>
                 </motion.div>
@@ -94,9 +105,9 @@ export default function Contact() {
               {socialLinks.map((social) => {
                 const Icon = social.icon;
                 return (
-                  <a 
+                  <a
                     key={social.label}
-                    href={social.href} 
+                    href={social.href}
                     target="_blank"
                     rel="noreferrer"
                     aria-label={social.label}
@@ -108,9 +119,9 @@ export default function Contact() {
               })}
             </motion.div>
           </motion.div>
-          
+
           {/* Form */}
-          <motion.div 
+          <motion.div
             className="lg:col-span-3"
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -119,27 +130,54 @@ export default function Contact() {
           >
             <form className="space-y-6 p-8 md:p-10 bg-card/60 backdrop-blur-sm rounded-3xl border border-border/50 shadow-sm">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2 text-foreground">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium mb-2 text-foreground"
+                >
                   Name
                 </label>
-                <Input id="name" placeholder="Your Name" className="rounded-xl h-12 bg-secondary/50 border-border/50 focus:border-primary" />
+                <Input
+                  id="name"
+                  placeholder="Your Name"
+                  className="rounded-xl h-12 bg-secondary/50 border-border/50 focus:border-primary"
+                />
               </div>
-              
+
               <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2 text-foreground">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium mb-2 text-foreground"
+                >
                   Email
                 </label>
-                <Input id="email" type="email" placeholder="your@email.com" className="rounded-xl h-12 bg-secondary/50 border-border/50 focus:border-primary" />
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="your@email.com"
+                  className="rounded-xl h-12 bg-secondary/50 border-border/50 focus:border-primary"
+                />
               </div>
-              
+
               <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2 text-foreground">
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium mb-2 text-foreground"
+                >
                   Message
                 </label>
-                <Textarea id="message" placeholder="Your message..." rows={5} className="rounded-xl bg-secondary/50 border-border/50 focus:border-primary resize-none" />
+                <Textarea
+                  id="message"
+                  placeholder="Your message..."
+                  rows={5}
+                  className="rounded-xl bg-secondary/50 border-border/50 focus:border-primary resize-none"
+                />
               </div>
-              
-              <Button type="submit" size="lg" className="w-full rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all duration-300 hover:-translate-y-0.5">
+
+              <Button
+                type="submit"
+                size="lg"
+                className="w-full rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all duration-300 hover:-translate-y-0.5"
+              >
                 <Send className="mr-2 h-4 w-4" /> Send Message
               </Button>
             </form>
