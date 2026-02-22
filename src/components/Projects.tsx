@@ -1,16 +1,29 @@
-
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
 import { ExternalLink, Github } from 'lucide-react';
-import { useRef, useEffect } from 'react';
-import VanillaTilt from 'vanilla-tilt';
 
 const projects = [
+  {
+    title: 'Job Board Website',
+    description: 'A responsive job board platform featuring secure authentication, mobile-first design, employer dashboards, and intuitive search/filtering tools to streamline job listing management and discovery.',
+    techStack: ['Next.js', 'Node.js', 'Express', 'Supabase'],
+    imageUrl: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1000&auto=format&fit=crop',
+    githubUrl: '#',
+    liveUrl: '#',
+  },
+  {
+    title: 'Full-Stack RAG Chatbot',
+    description: 'A Retrieval-Augmented Generation application allowing users to upload and converse with multiple documents. Features real-time streaming chat with SSE and smart @mention system.',
+    techStack: ['React', 'Node.js', 'Express.js', 'Google Gemini API', 'Tailwind CSS'],
+    imageUrl: 'https://images.unsplash.com/photo-1676299081847-824916de030a?q=80&w=1000&auto=format&fit=crop',
+    githubUrl: '#',
+    liveUrl: '#',
+  },
   {
     title: 'Full-Stack Weather & Movie App',
     description: 'A comprehensive application providing weather forecasts alongside movie recommendations based on current conditions.',
     techStack: ['Next.js', 'Redis', 'Express.js', 'TMDB API', 'Edamam API'],
-    imageUrl: 'https://images.unsplash.com/photo-1592210454359-9043f067919b?q=80&w=1000&auto=format&fit=crop', // Weather radar/cloud aesthetic
+    imageUrl: 'https://images.unsplash.com/photo-1592210454359-9043f067919b?q=80&w=1000&auto=format&fit=crop',
     githubUrl: '#',
     liveUrl: '#',
   },
@@ -18,7 +31,7 @@ const projects = [
     title: 'CRAPR Job Portal',
     description: 'A secure job portal platform with comprehensive user authentication and profile management for tech careers.',
     techStack: ['MongoDB', 'Express.js', 'React', 'OAuth'],
-    imageUrl: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1000&auto=format&fit=crop', // Desk/Tech aesthetic
+    imageUrl: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1000&auto=format&fit=crop',
     githubUrl: '#',
     liveUrl: '#',
   },
@@ -26,21 +39,21 @@ const projects = [
     title: 'GitHub User Search',
     description: 'Android application that allows users to search and browse GitHub profiles with detailed user information.',
     techStack: ['Kotlin', 'Retrofit', 'GitHub API'],
-    imageUrl: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=1000&auto=format&fit=crop', // GitHub code aesthetic
+    imageUrl: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?q=80&w=1000&auto=format&fit=crop',
     githubUrl: '#',
   },
   {
     title: 'Giftr App',
     description: 'Mobile application for managing gift ideas seamlessly, featuring robust offline storage capabilities.',
     techStack: ['React Native', 'Context API', 'AsyncStorage'],
-    imageUrl: 'https://images.unsplash.com/photo-1513201099705-a9746e1e201f?q=80&w=1000&auto=format&fit=crop', // Gift/Holiday aesthetic
+    imageUrl: 'https://images.unsplash.com/photo-1513201099705-a9746e1e201f?q=80&w=1000&auto=format&fit=crop',
     githubUrl: '#',
   },
   {
     title: 'Movie Night Voting',
     description: 'Interactive mobile app that helps groups decide on movies to watch using a swipe-based voting system.',
     techStack: ['Flutter', 'Firebase', 'TMDb API'],
-    imageUrl: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1000&auto=format&fit=crop', // Cinema aesthetic
+    imageUrl: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1000&auto=format&fit=crop',
     githubUrl: '#',
     liveUrl: '#',
   }
@@ -50,7 +63,7 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1 },
+    transition: { staggerChildren: 0.08 },
   },
 };
 
@@ -59,7 +72,7 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
@@ -91,23 +104,15 @@ export default function Projects() {
           </a>
         </motion.div>
         
-        {/* Bento Grid Layout */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[360px]"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
           {projects.map((project, index) => (
-            <motion.div 
-              key={index} 
-              variants={itemVariants} 
-              // Make the first project span 2 columns and 2 rows on large screens
-              className={index === 0 ? "md:col-span-2 md:row-span-2" : ""}
-            >
-              <ProjectCard project={project} isFeatured={index === 0} />
-            </motion.div>
+            <ProjectCard key={index} project={project} />
           ))}
         </motion.div>
       </div>
@@ -115,90 +120,69 @@ export default function Projects() {
   );
 }
 
-function ProjectCard({ project, isFeatured }: { project: typeof projects[0]; isFeatured: boolean }) {
-  const tiltRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (tiltRef.current) {
-      VanillaTilt.init(tiltRef.current, {
-        max: 8,
-        speed: 400,
-        glare: true,
-        'max-glare': 0.15,
-        scale: 1.02,
-      });
-    }
-    return () => {
-      if (tiltRef.current) {
-        (tiltRef.current as any).vanillaTilt?.destroy();
-      }
-    };
-  }, []);
-
+function ProjectCard({ project }: { project: typeof projects[0] }) {
   return (
-    <div ref={tiltRef} className="group relative w-full h-full rounded-3xl overflow-hidden bg-card border border-border/50 shadow-sm hover:shadow-xl transition-all duration-500">
-      
-      {/* Background Image */}
-      <div className="absolute inset-0 w-full h-full">
+    <motion.div 
+      variants={itemVariants}
+      className="group bg-card rounded-2xl overflow-hidden border border-border/50 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-primary/30 transition-all duration-500"
+    >
+      <div className="relative aspect-video overflow-hidden bg-secondary">
         <img 
           src={project.imageUrl} 
-          alt={project.title} 
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          alt={project.title}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          loading="lazy"
         />
-        {/* Dark Gradient Overlay for Text Readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 transition-opacity duration-500 group-hover:opacity-90" />
-      </div>
-      
-      {/* Content */}
-      <div className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-end text-white z-10">
         
-        {/* Top-Right Links */}
-        <div className="absolute top-6 right-6 flex gap-3 opacity-0 translate-y-[-10px] group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-100">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        
+        <div className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0">
           {project.githubUrl && (
             <a 
-              href={project.githubUrl} 
-              className="p-2.5 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md text-white transition-colors"
-              onClick={(e) => e.preventDefault()}
-              aria-label="GitHub Repository"
+              href={project.githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="p-3 rounded-full bg-white/90 hover:bg-white text-foreground shadow-lg hover:scale-110 transition-all duration-200"
+              aria-label="View GitHub Repository"
             >
-              <Github size={18} />
+              <Github size={20} />
             </a>
           )}
           {project.liveUrl && (
             <a 
-              href={project.liveUrl} 
-              className="p-2.5 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md text-white transition-colors"
-              onClick={(e) => e.preventDefault()}
-              aria-label="Live Demo"
+              href={project.liveUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="p-3 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:scale-110 transition-all duration-200"
+              aria-label="View Live Demo"
             >
-              <ExternalLink size={18} />
+              <ExternalLink size={20} />
             </a>
           )}
         </div>
-
-        <div>
-          <h3 className={`font-bold mb-2 text-white group-hover:text-primary-100 transition-colors ${isFeatured ? 'text-3xl sm:text-4xl' : 'text-2xl'}`}>
-            {project.title}
-          </h3>
-          
-          <p className={`text-white/80 mb-6 leading-relaxed line-clamp-2 group-hover:line-clamp-none transition-all duration-300 ${isFeatured ? 'text-lg sm:max-w-xl' : 'text-sm'}`}>
-            {project.description}
-          </p>
-          
-          <div className="flex flex-wrap gap-2">
-            {project.techStack.map((tech) => (
-              <Badge 
-                key={tech} 
-                variant="secondary" 
-                className="bg-white/10 hover:bg-white/20 text-white border-none backdrop-blur-md font-medium px-3 py-1"
-              >
-                {tech}
-              </Badge>
-            ))}
-          </div>
+      </div>
+      
+      <div className="p-6">
+        <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
+          {project.title}
+        </h3>
+        
+        <p className="text-muted-foreground text-sm leading-relaxed mb-4 line-clamp-2">
+          {project.description}
+        </p>
+        
+        <div className="flex flex-wrap gap-2">
+          {project.techStack.map((tech) => (
+            <Badge 
+              key={tech}
+              variant="secondary"
+              className="bg-secondary/70 hover:bg-primary/10 hover:text-primary transition-colors duration-200 text-xs font-medium px-2.5 py-1"
+            >
+              {tech}
+            </Badge>
+          ))}
         </div>
       </div>
-
-    </div>
+    </motion.div>
   );
 }

@@ -43,12 +43,12 @@ export default function Hero() {
               </span>
             </motion.h1>
             <motion.h2 variants={itemVariants} className="text-lg md:text-xl text-muted-foreground font-medium mb-6 max-w-lg leading-relaxed">
-              Innovative Full-Stack Developer | Passionate Problem Solver | Cloud and API Enthusiast
+              Full Stack Software Developer | Mobile Application Developer
             </motion.h2>
             <motion.p variants={itemVariants} className="mb-10 text-muted-foreground/90 max-w-lg leading-relaxed">
-              A dedicated software developer with a passion for building impactful and scalable solutions. 
-              Currently pursuing a diploma in Computer Application Design and Development at Algonquin College, 
-              I specialize in creating robust full-stack applications with modern technologies.
+              An aspiring AI/ML Engineer and Full-Stack Developer with hands-on experience building 
+              responsive web and mobile applications. Passionate about applying AI, ML, and LLMs to create 
+              intelligent, user-centric experiences, and eager to contribute within innovative teams.
             </motion.p>
             <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
               <Button asChild size="lg" className="group rounded-full px-8 shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all duration-300 hover:-translate-y-0.5">
@@ -60,7 +60,7 @@ export default function Hero() {
                 <a href="#contact">Contact Me</a>
               </Button>
               <Button variant="ghost" size="lg" asChild className="rounded-full px-8 hover:-translate-y-0.5 transition-all duration-300">
-                <a href="/Rikin_K_Patel_Resume.docx" download={true}>
+                <a href="/Field_Resume_updated.pdf" download={true}>
                   <Download className="mr-2 h-4 w-4" /> Resume
                 </a>
               </Button>

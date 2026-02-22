@@ -7,24 +7,13 @@ import { useRef } from 'react';
 const experienceData = [
   {
     role: "Software Developer Intern",
-    company: "Tech Solutions Inc.",
-    date: "May 2023 - Aug 2023",
+    company: "Shubham Metals",
+    date: "Jan 2022 - Nov 2022",
     description: [
-      "Developed and maintained RESTful APIs using Node.js and Express.",
-      "Collaborated with the frontend team to integrate API endpoints with React components.",
-      "Implemented automated testing using Jest to ensure code quality and reliability.",
-      "Participated in daily stand-ups and sprint planning meetings within an Agile environment."
-    ],
-    icon: Briefcase
-  },
-  {
-    role: "Frontend Developer",
-    company: "WebCraft Studios",
-    date: "Jan 2023 - Apr 2023",
-    description: [
-      "Designed and developed responsive UI components using React and Tailwind CSS.",
-      "Improved website performance by implementing code splitting and lazy loading techniques.",
-      "Collaborated with UX designers to implement user-friendly interfaces and interactions."
+      "Architected a full-stack inventory management dashboard using HTML, CSS, JavaScript, and Python (Flask), enabling real-time tracking of 500+ SKUs across aluminum and steel inventory; reduced stock lookup time by 40%.",
+      "Engineered performance-critical metal weight and pricing calculation modules in C++, optimizing algorithms to process 150+ daily transactions 3x faster than legacy Excel workflows.",
+      "Automated data entry pipeline using Python (Pandas, regex) to parse 200+ weekly supplier invoices and auto-populate ERP databases, cutting processing time from 15 hours to 2 hours weekly.",
+      "Conducted data analysis on 12 months of procurement datasets using Python (Pandas, Matplotlib), identifying seasonal demand patterns that contributed to an 8% reduction in raw material costs."
     ],
     icon: Briefcase
   }
@@ -34,9 +23,9 @@ const educationData = [
   {
     role: "Diploma in Computer Application Design and Development",
     company: "Algonquin College",
-    date: "Sep 2023 - Apr 2025 (Expected)",
+    date: "Sep 2023 - Apr 2025",
     description: [
-      "Focusing on full-stack development, cloud services, and modern software architecture.",
+      "Focusing on full-stack development, cloud services, AI/ML applications, and modern software architecture.",
       "Key Coursework: Web Application Development, Database Design & Implementation, Cloud Computing Solutions, Mobile Development, Software Project Management."
     ],
     icon: GraduationCap
@@ -87,7 +76,7 @@ export default function Resume() {
             </p>
           </div>
           <Button asChild className="rounded-full px-8 py-6 shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all duration-300 hover:-translate-y-1">
-            <a href="/Rikin_K_Patel_Resume.docx" download={true}>
+            <a href="/Field_Resume_updated.pdf" download={true}>
               <Download className="mr-2 h-5 w-5" /> Download Resume
             </a>
           </Button>
