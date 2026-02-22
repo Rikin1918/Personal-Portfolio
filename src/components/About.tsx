@@ -1,14 +1,16 @@
-import { motion } from 'framer-motion';
-import { Code2, Rocket, Globe, Zap } from 'lucide-react';
-import { GitHubCalendar } from 'react-github-calendar';
+import { motion } from "framer-motion";
+import { Code2, Rocket, Globe, Zap } from "lucide-react";
+import { GitHubCalendar } from "react-github-calendar";
 
-const GITHUB_USERNAME = 'pate1355';
+const GITHUB_USERNAME = "pate1355";
+const selfHostedUrl =
+  "https://github-readme-stats-rikin-patels-projects-d70ac2ef.vercel.app/";
 
 const highlights = [
-  { icon: Code2, label: 'Projects Built', value: '10+' },
-  { icon: Globe, label: 'Technologies', value: '20+' },
-  { icon: Rocket, label: 'Platforms', value: 'Web · Mobile · Cloud' },
-  { icon: Zap, label: 'Focus', value: 'Full-Stack' },
+  { icon: Code2, label: "Projects Built", value: "10+" },
+  { icon: Globe, label: "Technologies", value: "20+" },
+  { icon: Rocket, label: "Platforms", value: "Web · Mobile · Cloud" },
+  { icon: Zap, label: "Focus", value: "Full-Stack" },
 ];
 
 const itemVariants = {
@@ -18,7 +20,10 @@ const itemVariants = {
 
 export default function About() {
   return (
-    <section id="about" className="py-24 bg-secondary/30 relative overflow-hidden">
+    <section
+      id="about"
+      className="py-24 bg-secondary/30 relative overflow-hidden"
+    >
       <div className="absolute top-0 right-0 w-80 h-80 bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="container relative z-10">
@@ -33,7 +38,7 @@ export default function About() {
 
         <div className="grid lg:grid-cols-5 gap-12 items-start">
           {/* Text Content */}
-          <motion.div 
+          <motion.div
             className="lg:col-span-3 space-y-5"
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -62,7 +67,7 @@ export default function About() {
           </motion.div>
 
           {/* Highlight Cards */}
-          <motion.div 
+          <motion.div
             className="lg:col-span-2 grid grid-cols-2 gap-4"
             initial="hidden"
             whileInView="visible"
@@ -72,15 +77,17 @@ export default function About() {
             {highlights.map((item) => {
               const Icon = item.icon;
               return (
-                <motion.div 
-                  key={item.label} 
+                <motion.div
+                  key={item.label}
                   variants={itemVariants}
                   className="group p-6 bg-card/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 text-center"
                 >
                   <div className="inline-flex p-3 bg-primary/10 text-primary rounded-xl mb-4 group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
                     <Icon size={24} />
                   </div>
-                  <p className="text-xl font-bold text-foreground mb-1">{item.value}</p>
+                  <p className="text-xl font-bold text-foreground mb-1">
+                    {item.value}
+                  </p>
                   <p className="text-sm text-muted-foreground">{item.label}</p>
                 </motion.div>
               );
@@ -96,12 +103,14 @@ export default function About() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mt-16"
         >
-          <h3 className="text-2xl font-bold font-heading mb-8 text-left">GitHub Activity</h3>
+          <h3 className="text-2xl font-bold font-heading mb-8 text-left">
+            GitHub Activity
+          </h3>
           <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
             {/* GitHub Stats Card */}
             <div className="group p-5 bg-card/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 flex items-center justify-center">
-              <img 
-                src={`https://github-readme-stats.vercel.app/api?username=${GITHUB_USERNAME}&show_icons=true&theme=default&hide_border=true&bg_color=00000000&title_color=0078FF&icon_color=0078FF&text_color=6B7280&ring_color=0078FF`}
+              <img
+                src={`${selfHostedUrl}api?username=${GITHUB_USERNAME}&show_icons=true&theme=default&hide_border=true&bg_color=00000000&title_color=0078FF&icon_color=0078FF&text_color=6B7280&ring_color=0078FF`}
                 alt="GitHub Stats"
                 className="w-full h-auto max-w-sm"
                 loading="lazy"
@@ -110,8 +119,8 @@ export default function About() {
 
             {/* Top Languages Card */}
             <div className="group p-5 bg-card/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 flex items-center justify-center">
-              <img 
-                src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${GITHUB_USERNAME}&layout=compact&hide_border=true&bg_color=00000000&title_color=0078FF&text_color=6B7280`}
+              <img
+                src={`${selfHostedUrl}api/top-langs/?username=${GITHUB_USERNAME}&layout=compact&hide_border=true&bg_color=00000000&title_color=0078FF&text_color=6B7280`}
                 alt="Top Languages"
                 className="w-full h-auto max-w-sm"
                 loading="lazy"
@@ -120,7 +129,7 @@ export default function About() {
 
             {/* Streak Stats */}
             <div className="md:col-span-2 group p-5 bg-card/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 flex items-center justify-center">
-              <img 
+              <img
                 src={`https://github-readme-streak-stats.herokuapp.com/?user=${GITHUB_USERNAME}&hide_border=true&background=00000000&stroke=0078FF&ring=0078FF&fire=0078FF&currStreakLabel=0078FF&sideLabels=0078FF&currStreakNum=1F2937&sideNums=1F2937&dates=6B7280`}
                 alt="GitHub Streak"
                 className="w-full h-auto max-w-lg"
@@ -129,7 +138,7 @@ export default function About() {
             </div>
             {/* Contribution Graph */}
             <div className="md:col-span-2 group p-6 bg-card/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/40 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 flex items-center justify-center overflow-x-auto">
-              <GitHubCalendar 
+              <GitHubCalendar
                 username={GITHUB_USERNAME}
                 colorScheme="light"
                 fontSize={12}
