@@ -1,8 +1,21 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, Phone, MapPin, Linkedin, Github, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Github, Send, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { toast } from "sonner";
+import { useState } from "react";
+
+const contactSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
 
 const contactInfo = [
   {
@@ -39,6 +52,48 @@ const itemVariants = {
 };
 
 export default function Contact() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+  });
+
+  const onSubmit = async (data: ContactFormData) => {
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to send message");
+      }
+
+      toast.success("Message sent successfully!", {
+        description: "Thank you for reaching out. I'll get back to you soon.",
+      });
+      reset();
+    } catch (error) {
+      toast.error("Failed to send message", {
+        description: error instanceof Error ? error.message : "Please try again later.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section id="contact" className="py-24 relative overflow-hidden">
       <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
@@ -60,7 +115,6 @@ export default function Contact() {
         </motion.div>
 
         <div className="grid lg:grid-cols-5 gap-10 items-start max-w-5xl mx-auto">
-          {/* Contact Info */}
           <motion.div
             className="lg:col-span-2 space-y-6"
             initial="hidden"
@@ -100,7 +154,6 @@ export default function Contact() {
               );
             })}
 
-            {/* Social Links */}
             <motion.div variants={itemVariants} className="flex gap-3 pt-2">
               {socialLinks.map((social) => {
                 const Icon = social.icon;
@@ -120,7 +173,6 @@ export default function Contact() {
             </motion.div>
           </motion.div>
 
-          {/* Form */}
           <motion.div
             className="lg:col-span-3"
             initial={{ opacity: 0, x: 30 }}
@@ -128,7 +180,10 @@ export default function Contact() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <form className="space-y-6 p-8 md:p-10 bg-card/60 backdrop-blur-sm rounded-3xl border border-border/50 shadow-sm">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="space-y-6 p-8 md:p-10 bg-card/60 backdrop-blur-sm rounded-3xl border border-border/50 shadow-sm"
+            >
               <div>
                 <label
                   htmlFor="name"
@@ -139,8 +194,17 @@ export default function Contact() {
                 <Input
                   id="name"
                   placeholder="Your Name"
-                  className="rounded-xl h-12 bg-secondary/50 border-border/50 focus:border-primary"
+                  className={`rounded-xl h-12 bg-secondary/50 border-border/50 focus:border-primary ${
+                    errors.name ? "border-destructive" : ""
+                  }`}
+                  {...register("name")}
+                  disabled={isSubmitting}
                 />
+                {errors.name && (
+                  <p className="text-sm text-destructive mt-1">
+                    {errors.name.message}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -154,8 +218,17 @@ export default function Contact() {
                   id="email"
                   type="email"
                   placeholder="your@email.com"
-                  className="rounded-xl h-12 bg-secondary/50 border-border/50 focus:border-primary"
+                  className={`rounded-xl h-12 bg-secondary/50 border-border/50 focus:border-primary ${
+                    errors.email ? "border-destructive" : ""
+                  }`}
+                  {...register("email")}
+                  disabled={isSubmitting}
                 />
+                {errors.email && (
+                  <p className="text-sm text-destructive mt-1">
+                    {errors.email.message}
+                  </p>
+                )}
               </div>
 
               <div>
@@ -169,16 +242,34 @@ export default function Contact() {
                   id="message"
                   placeholder="Your message..."
                   rows={5}
-                  className="rounded-xl bg-secondary/50 border-border/50 focus:border-primary resize-none"
+                  className={`rounded-xl bg-secondary/50 border-border/50 focus:border-primary resize-none ${
+                    errors.message ? "border-destructive" : ""
+                  }`}
+                  {...register("message")}
+                  disabled={isSubmitting}
                 />
+                {errors.message && (
+                  <p className="text-sm text-destructive mt-1">
+                    {errors.message.message}
+                  </p>
+                )}
               </div>
 
               <Button
                 type="submit"
                 size="lg"
+                disabled={isSubmitting}
                 className="w-full rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all duration-300 hover:-translate-y-0.5"
               >
-                <Send className="mr-2 h-4 w-4" /> Send Message
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send className="mr-2 h-4 w-4" /> Send Message
+                  </>
+                )}
               </Button>
             </form>
           </motion.div>
