@@ -182,7 +182,7 @@ function ProjectCard({ project }: { project: (typeof projects)[0] }) {
               href={project.githubUrl}
               target="_blank"
               rel="noreferrer"
-              className="p-3 rounded-full bg-white/90 hover:bg-white text-foreground shadow-lg hover:scale-110 transition-all duration-200"
+              className="p-3 rounded-full bg-white/90 hover:bg-white text-black shadow-lg hover:scale-110 transition-all duration-200"
               aria-label="View GitHub Repository"
             >
               <Github size={20} />
